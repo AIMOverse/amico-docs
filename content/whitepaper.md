@@ -1,9 +1,8 @@
 +++
 date = '2025-01-17T22:37:56+08:00'
 title = 'Whitepaper'
+menu = "navbar"
 +++
-
-# Whitepaper
 
 ## Introduction to Amico
 
