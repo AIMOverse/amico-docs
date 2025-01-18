@@ -72,3 +72,11 @@ Built on top of the [Rig framework](https://rig.rs), Amico offers a comprehensiv
 - **Agent Response**
     - Following execution, the agent can provide feedback to the user, similar to a chatbot's response.
     - This response could also include instructions for an embedded device, such as triggering a motor or adjusting the environment in some way.
+
+## What's Next?
+
+Getting started with Amico is easy!
+
+```bash
+cargo install amico
+```
