@@ -10,37 +10,67 @@ title = 'Whitepaper'
 
 ### What is Amico?
 
-Amico is the next-gen Autonomous AI framework & runtime, with a focus on embedded devices and multi-agent systems. Amico natively supports the Solana ecosystem, enabling AI Agents to make autonomously decisions in on-chain actions.
+Amico is a next-generation Autonomous AI framework and runtime designed for embedded devices and multi-agent systems. It is natively integrated with the Solana ecosystem, enabling AI agents to autonomously make decisions and take on-chain actions.
 
-Amico is built on top of the [Rig framework](https://rig.rs), and supports a much more wider range of features, including:
+Built on top of the [Rig framework](https://rig.rs), Amico offers a comprehensive set of features, including:
 
 - Autonomous AI runtime for embedded devices
-- Multi-agent systems
+- Support for multi-agent systems
 - Autonomous AI for on-chain actions
-- Proof-of-agenthood (PoA) with the power of TEE and consensus mechanisms
+- Proof-of-Agenthood (PoA) utilizing Trusted Execution Environments (TEE) and consensus mechanisms
 
 ### Core Concepts
 
-- **Autonomous AI**: AI agents can make decisions autonomously, without human intervention.
-- **Proof-of-agenthood (PoA)**: A consensus mechanism for AI agents, making them verified and trusted.
+- **Autonomous AI**: AI agents capable of making decisions independently, without human intervention.
+- **Proof-of-Agenthood (PoA)**: A consensus mechanism for verifying the authenticity and trustworthiness of AI agents.
 
 ### Key Features
 
-- **The awareness of real-world environment**
-    - Amico natively supports running in embedded devices, giving the agent the ability to detect real-world environment and make decisions based on it.
-    - Amico can control its own 'body' to interact with real-world.
-- **Autonomous decision making**
-    - Amico can make decisions autonomously, without human intervention.
-    - **Proof-of-agenthood**: Agents can be verified and trusted, utilizing **Trusted Execution Environments** (TEE) and consensus mechanisms, whether in embedded devices or server-side multi-agent systems.
-- **Native web3 support**
-    - Amico natively supports the Solana ecosystem. Every agent has its own wallet and can interact with Solana blockchain with autonomous decision making.
-    - Amico can also support other web3 ecosystems, such as Ethereum, Solana, BSC, etc.
-- **Task-based AI agent runtime**
-    - Amico runtime is driven by time-based task scheduling, giving the agent the ability to make decisions for a specific task at a specific time.
-    - During each task, Amico acquires the knowledge of real-world events from the Internet, such as social media, news, weather, etc., understanding the events, and making decisions based on both the knowledge acquired and its own knowledge base.
-- **Multi-agent consensus mechanism**
-    - Autonomous AI Agents communicate with each other, making the agent community more decentralized.
-    - For simpler scenarios, partial consensus can be used instead of overall consensus.
-    - The consensus mechanisms can be used for the proof of agenthood.
+- **Environmental Awareness**
+    - Amico runs natively on embedded devices, allowing agents to sense and interpret the real world. The agents can interact with their environment and make decisions accordingly.
+    - The framework enables agents to control their "bodies" and perform physical actions in the real world.
+  
+- **Autonomous Decision Making**
+    - Amico agents make decisions autonomously, requiring no human input.
+    - **Proof-of-Agenthood** ensures the verification and trust of agents, using Trusted Execution Environments (TEE) and consensus mechanisms, whether in embedded devices or distributed multi-agent systems.
+
+- **Native Web3 Integration**
+    - Amico integrates seamlessly with the Solana ecosystem, allowing agents to have their own wallets and autonomously interact with the Solana blockchain.
+    - The framework also supports other major Web3 ecosystems, such as Ethereum, Binance Smart Chain (BSC), and others.
+
+- **Task-Oriented AI Agent Runtime**
+    - The Amico runtime uses time-based task scheduling, enabling agents to make decisions at designated times for specific tasks.
+    - During each task, the agent gathers information from the real world, including social media, news, weather, and other real-time data sources, to supplement its knowledge base and make informed decisions.
+
+- **Multi-Agent Consensus**
+    - Amico facilitates communication between autonomous agents, fostering decentralization within the agent community.
+    - For certain scenarios, partial consensus mechanisms can be used, instead of requiring full agreement among all agents.
+    - These consensus mechanisms also play a critical role in the Proof-of-Agenthood system.
 
 ## Architecture Overview
+
+![Task Execution Workflow](/task-exec.png)
+
+### Task Execution Workflow
+
+- **Event-Triggered Task**
+    - Tasks are triggered by various events, such as timers, major on-chain or off-chain events, or signals from other agents.
+    - Each event carries context, which is then used as an additional knowledge source when the agent gathers information.
+
+- **Knowledge Acquisition**
+    - The agent collects relevant knowledge from its internal knowledge base as well as the context of the event.
+    - If needed, the agent can also acquire real-time data from on-chain or off-chain sources.
+    - The agent synthesizes all this information into a comprehensive report to guide its decision-making process.
+
+- **Decision Making**
+    - Using the knowledge report, the agent evaluates possible actions and makes an informed decision.
+    - The agent can either respond to the user, execute a task, or do both.
+    - For critical decisions, the agent may seek consensus from other agents to ensure the reliability of the decision.
+
+- **Execution of Decision**
+    - The agent carries out the chosen action, which could range from executing a transaction to posting content (e.g., a tweet).
+    - If the action requires consensus, the agent will first consult with other agents before proceeding.
+
+- **Agent Response**
+    - Following execution, the agent can provide feedback to the user, similar to a chatbot's response.
+    - This response could also include instructions for an embedded device, such as triggering a motor or adjusting the environment in some way.
