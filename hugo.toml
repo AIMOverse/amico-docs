@@ -4,7 +4,7 @@ title = 'Amico Docs'
 theme = "hugo-theme-monochrome"
 
 [params]
-navbar_title = 'Amico AI Agent Framework'
+navbar_title = 'Amico Docs'
 footer = "Copyright © 2025 the Amico Community"
 enable_math = true
 enable_site_search = true

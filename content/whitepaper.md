@@ -1,6 +1,5 @@
 +++
 date = '2025-01-17T22:37:56+08:00'
-draft = true
 title = 'Whitepaper'
 +++
 
