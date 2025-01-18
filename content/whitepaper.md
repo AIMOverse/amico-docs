@@ -48,7 +48,7 @@ Built on top of the [Rig framework](https://rig.rs), Amico offers a comprehensiv
 
 ## Architecture Overview
 
-![Task Execution Workflow](/task-exec.png)
+![Task Execution Workflow](../task-exec.png)
 
 ### Task Execution Workflow
 
