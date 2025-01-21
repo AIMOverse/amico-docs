@@ -1,8 +1,6 @@
-# Overview
+# Introduction
 
-## Introduction to Amico
-
-### What is Amico?
+## What is Amico?
 
 Amico is a next-generation Autonomous AI framework and runtime designed for embedded devices and multi-agent systems. It is natively integrated with the Solana ecosystem, enabling AI agents to autonomously make decisions and take on-chain actions.
 

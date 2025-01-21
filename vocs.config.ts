@@ -19,6 +19,10 @@ export default defineConfig({
         link: `${docsPath}/getting-started`,
       },
       {
+        text: "Contributing",
+        link: `${docsPath}/contributing`,
+      },
+      {
         text: "Packages",
         items: [
           {
