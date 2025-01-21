@@ -1,18 +1,22 @@
 import { defineConfig } from "vocs";
 
+const basePath = "/amico-docs";
+const docsPath = `/docs`;
+const tutorPath = `/tutorials`;
+
 export default defineConfig({
   title: "Amico Docs",
   rootDir: ".",
-  basePath: "/amico-docs",
+  basePath,
   sidebar: {
-    "/docs/": [
+    [`${docsPath}/`]: [
       {
         text: "Introduction",
-        link: "/docs/introduction",
+        link: `${docsPath}/introduction`,
       },
       {
         text: "Getting Started",
-        link: "/docs/getting-started",
+        link: `${docsPath}/getting-started`,
       },
       {
         text: "Packages",
@@ -20,15 +24,15 @@ export default defineConfig({
         items: [
           {
             text: "Overview",
-            link: "/docs/packages/overview",
+            link: `${docsPath}/packages/overview`,
           },
           {
             text: "Core Library",
-            link: "/docs/packages/amico-core",
+            link: `${docsPath}/packages/amico-core`,
           },
           {
             text: "Amico Runtime",
-            link: "/docs/packages/amico",
+            link: `${docsPath}/packages/amico`,
           },
         ],
       },
@@ -37,13 +41,13 @@ export default defineConfig({
   topNav: [
     {
       text: "Documentation",
-      link: "/docs/introduction",
-      match: "/docs/",
+      link: `${docsPath}/introduction`,
+      match: `${docsPath}/`,
     },
     {
       text: "Tutorials",
-      link: "/tutorials",
-      match: "/tutorials/",
+      link: `${tutorPath}/`,
+      match: `${tutorPath}/`,
     }
   ]
 });
