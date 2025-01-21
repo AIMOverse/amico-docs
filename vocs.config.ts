@@ -3,6 +3,7 @@ import { defineConfig } from "vocs";
 export default defineConfig({
   title: "Amico Docs",
   rootDir: ".",
+  basePath: "/amico-docs",
   sidebar: {
     "/docs/": [
       {
