@@ -20,7 +20,6 @@ export default defineConfig({
       },
       {
         text: "Packages",
-        collapsed: true,
         items: [
           {
             text: "Overview",
