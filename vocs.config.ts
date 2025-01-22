@@ -30,6 +30,10 @@ export default defineConfig({
             link: `${docsPath}/packages/overview`,
           },
           {
+            text: "Dev Plan",
+            link: `${docsPath}/packages/dev-plan`,
+          },
+          {
             text: "Core Library",
             link: `${docsPath}/packages/amico-core`,
           },
