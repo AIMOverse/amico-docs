@@ -43,6 +43,20 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: "Dependencies",
+        collapsed: true,
+        items: [
+          {
+            text: "Rig-rs",
+            link: "https://rig.rs",
+          },
+          {
+            text: "Listen-rs",
+            link: "https://listen-rs.com",
+          },
+        ],
+      },
     ],
   },
   topNav: [

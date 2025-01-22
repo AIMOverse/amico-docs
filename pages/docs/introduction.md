@@ -2,9 +2,9 @@
 
 ## What is Amico?
 
-Amico is a next-generation Autonomous AI framework and runtime designed for embedded devices and multi-agent systems. It is natively integrated with the Solana ecosystem utilizing [listen-rs](https://www.listen-rs.com/), enabling AI agents to autonomously make decisions and take on-chain actions.
+Amico is a next-generation Autonomous AI framework and runtime designed for embedded devices and multi-agent systems. It is natively integrated with the Solana ecosystem, enabling AI agents to autonomously make decisions and take on-chain actions.
 
-Built on top of the [Rig framework](https://rig.rs), Amico offers a comprehensive set of features, including:
+Amico offers a comprehensive set of features, including:
 
 - Autonomous AI runtime for embedded devices
 - Support for multi-agent systems
@@ -24,7 +24,7 @@ Built on top of the [Rig framework](https://rig.rs), Amico offers a comprehensiv
 
 - **Native Web3 Integration**
 
-  - Amico integrates seamlessly with the Solana ecosystem using the [listen-rs](https://www.listen-rs.com/) SDK, allowing agents to have their own wallets and autonomously interact with the Solana blockchain.
+  - Amico integrates seamlessly with the Solana ecosystem, allowing agents to have their own wallets and autonomously interact with the Solana blockchain.
   - The framework also supports other major Web3 ecosystems, including EVM chains.
 
 - **Multi-Agent Consensus**
