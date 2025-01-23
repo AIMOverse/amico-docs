@@ -2,36 +2,36 @@
 
 ## What is Amico?
 
-Amico is a next-generation Autonomous AI framework and runtime designed for embedded devices and multi-agent systems. It is natively integrated with the Solana ecosystem, enabling AI agents to autonomously make decisions and take on-chain actions.
+Amico is an Event-based Autonomous AI Agent Framework written in Rust tailered for embedded AI devices and multi-agent systems. It is designed with high scalability and flexibility for customization, while remains simple to use and deploy autonomous AI agents on all-kinds of devices.
 
-Amico offers a comprehensive set of features, including:
+Amico is natively integrated with the Solana ecosystem, enabling AI agents to autonomously make decisions and take on-chain actions.
 
-- Autonomous AI runtime for embedded devices
-- Support for multi-agent systems
-- Autonomous AI for on-chain actions
-- Proof-of-Agenthood (PoA) utilizing Trusted Execution Environments (TEE)
+Amico offers a comprehensive set of features, some hightlights including:
+
+- Ideal for deploy Autonomous AI agent in a variaty of scenarios, with tailed support for embedded devices
+- Support for multi-agent collboration & coordination
+- Autonomous AI agents with on-chain actions capabilities
+- Low-Code development & deployement with runtime support
 
 ### Key Features
 
-- **Autonomous AI Agents**
+- **Event-based Autonomous AI Agents**
 
-  - Amico agents make decisions autonomously based on events, the external envinronment, and their internal knowledge base, requiring no human input.
+  - Event is abstract in Amico, refers to any external triggers that can be the inputs to AI. This abstraction enables agents to respond to all-kinds of signals without human intervention.
+
+  - Amico agents make decisions autonomously based on events, the external environment, and their internal knowledge base, requiring no human input.
 
 - **Designed for Embedded Devices**
 
-  - Amico is specifically designed for embedded devices, because agents with independent computing power are **real** autonomous agents.
-  - Agents can acquire information from the real world via sensors, cameras, GPS, etc., and respond to events via actuators.
+  - Thanks to the Rust language's support and security for embedded systems, a one-click deployment runtime, and plug-in capabilities for calling hardware modules, Amico can be adapted to most consumer-grade end-side ai electronic hardware.
 
-- **Native Web3 Integration**
+  - Any consumer-grade end-side ai hardware that uses Amico can directly use Amico's on-chain interaction module with the functionality of a Depin device.
 
-  - Amico integrates seamlessly with the Solana ecosystem, allowing agents to have their own wallets and autonomously interact with the Solana blockchain.
-  - The framework also supports other major Web3 ecosystems, including EVM chains.
+- **Support for Multi-Agent Collaboration & Coordination**
 
-- **Multi-Agent Consensus**
-
-  - Amico facilitates communication between autonomous agents, fostering decentralization within the agent community.
-  - For certain scenarios, partial consensus mechanisms can be used, instead of requiring full agreement among all agents.
-  - These consensus mechanisms also play a critical role in the Proof-of-Agenthood system.
+  - Amico enables privacy-preserving communication between agents, fostering safety, trustibility,and decentralization within the agent community.
+  - For certain critical scenarios, full/partial consensus between autonomous AI agents can be achieved through Amico, ensuring optimal decision-making.
+  - Proof-of-Agenthood (PoA) is a consensus mechanism we are working on, which aims to prove actions & decisions are made by the agent automously, rather by human.
 
 ## Architecture Overview
 
@@ -41,30 +41,30 @@ Amico offers a comprehensive set of features, including:
 
 - **Event-Triggered Task**
 
-  - Tasks are triggered by various events, such as timers, major on-chain or off-chain events, or signals from other agents.
-  - Each event carries context, which is then used as an additional knowledge source when the agent gathers information.
+  - Tasks are triggered by various "events", such as timers, major on-chain or off-chain events, or signals from other agents.
+  - Each event carries context, the information of the event in natural language, which is then used as an additional knowledge source when the agent gathers information.
 
 - **Knowledge Acquisition**
 
   - The agent collects relevant knowledge from its internal knowledge base as well as the context of the event.
-  - If needed, the agent can also acquire real-time data from on-chain or off-chain sources.
-  - The agent synthesizes all this information into a comprehensive report to guide its decision-making process.
+  - If needed, the agent can also acquire real-time data sources from both on-chain and off-chain environments.
+  - The agent synthesizes all these informations into a comprehensive report to guide its decision-making process.
 
 - **Decision Making**
 
-  - Using the knowledge report, the agent evaluates possible actions and makes an informed decision.
+  - Using the knowledge report, the agent evaluates possible actions and makes fully-informed decisions.
   - The agent can either respond to the user, execute a task, or do both.
-  - For critical decisions, the agent may seek consensus from other agents to ensure the reliability of the decision.
+  - For critical decisions, the agent may optionally seek consensus from other agents to ensure the reliability of the decision in a SWARM-system environment.
 
 - **Execution of Decision**
 
   - The agent carries out the chosen action, which could range from executing a transaction to posting content (e.g., a tweet).
-  - If the action requires consensus, the agent will first consult with other agents before proceeding.
+  - If the action requires consensus, the agent will optinally first communicate with other agents before proceeding.
 
 - **Agent Response**
 
-  - Following execution, the agent can provide feedback to the user, similar to a chatbot's response.
-  - This response could also include instructions for an embedded device, such as triggering a motor or adjusting the environment in some way.
+  - Following execution, the agent can provide feedback to the user in human-readable way.
+  - This response could also include instructions (tool calls) for embedded devices, such as triggering a motor or adjusting the environment in some way.
 
 ## What's Next?
 
