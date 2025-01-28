@@ -30,15 +30,27 @@ export default defineConfig({
             link: `${docsPath}/packages/overview`,
           },
           {
-            text: "Dev Plan",
-            link: `${docsPath}/packages/dev-plan`,
-          },
-          {
             text: "Core Library",
             link: `${docsPath}/packages/amico-core`,
           },
           {
-            text: "Amico Runtime",
+            text: "Amico Plugins",
+            link: `${docsPath}/packages/amico-plugins`,
+          },
+          {
+            text: "Builtin Plugins",
+            link: `${docsPath}/packages/amico-std`,
+          },
+          {
+            text: "Firmware drivers",
+            link: `${docsPath}/packages/amico-firmware`,
+          },
+          {
+            text: "Procedural Macros",
+            link: `${docsPath}/packages/amico-macros`,
+          },
+          {
+            text: "Standalone Runtime",
             link: `${docsPath}/packages/amico`,
           },
         ],
