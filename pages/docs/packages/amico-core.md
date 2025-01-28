@@ -1,0 +1,16 @@
+# Core Library
+
+## Overview
+
+The Core Library provides the core components and interfaces for Amico. It does not implement any specific functionality, but only provides the core workflow and interface for building plugins.
+
+The Amico Community is maintaining a series of plugins that implements common functionality for Amico agents and provides basic functionality for building custom agents. These plugins are available in the [amico-std](/docs/packages/amico-std) crate.
+
+## Core Modules
+
+- **config**
+- **event**
+- **knowledge**
+- **task**
+- **provider**
+- **executor**
