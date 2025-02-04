@@ -22,8 +22,8 @@ export default defineConfig({
         text: "Getting Started",
         items: [
           {
-            text: "Running Amico Instance",
-            link: `${docsPath}/getting-started/running-instance`,
+            text: "Running Amico",
+            link: `${docsPath}/getting-started/run-amico`,
           },
           {
             text: "Plugin Development",
