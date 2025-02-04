@@ -35,9 +35,40 @@ Amico offers a comprehensive set of features, some hightlights including:
 
 ## Architecture Overview
 
-![Task Execution Workflow](/amico-docs/task-exec.png)
+### Framework Modules
+
+![Framework](https://raw.githubusercontent.com/AIMOverse/amico/refs/heads/main/images/framework.png)
+
+- **Framework Layers**
+
+  - The **Interaction Layer** manages the communication between agents and the environment. In this layer, **sensors** are used to acquire the current state of the environment, and **effectors** are used to execute actions. The environment the layer interacts to is not only real-world but also virtual environments like the Internet or a block chain. The drivers for real-world hardware sensors and effectors are implemented in `amico-firmware` crate.
+  - The **Agent Layer** encapsulates the core logic of the agent, including state management, decision-making, and action execution. The concrete **LLM Providers** and **RAG Systems** are implemented in plugins. The framework provides several **Task execution model** (see the *Model-Based Agents* section below) implementations in the `amico-std` crate, but you can also write your own implementations in plugins.
+  - The **Engine Layer** implements the core logic of task scheduling, event generation and action selection based on events. The framework provides an implementation of **Action Selector** based on mapping in the `amico-std` crate, but you can also write your own implementations in plugins.
+
+- **Plugins**
+
+  - **Effectors**: Perform actions like hardware module control, transaction execution, content posting, sending messages to other agents, etc.
+  - **Sensors**: Acquire the current state of the environment like sensor reading, social media content reading, receiving messages from other agents, etc.
+  - **LLM Providers**: Providing API access to LLM services like OpenAI, DeepSeek, etc.
+  - **Firmware Drivers**: Providing a low-level interface for interacting with embedded devices.
+
+- **Low-Level Plugins**
+
+  - **RAG Systems**: Providing a retrieval-augmented generation system.
+  - **Task Executors**: Providing a task execution workflow, like Model-Based Agents described below.
+  - **Action Selectors**: Providing an action selection algorithm, to select the most appropriate action given the current state and the available actions.
+
+### Model-Based Agents
+
+![Basic Design](https://raw.githubusercontent.com/AIMOverse/amico/refs/heads/main/images/model_based.png)
+
+- **State Representation**: The state agent acquires the current state of the environment through sensors and represents it. This state describes the specific situation of the current world, such as the attributes of location, resources, or objects.
+- **World Evolution**: Predicts the impact of actions.
+- **Condition-Action Rules**: Module for decision-making.
 
 ### Task Execution Workflow
+
+![Task Execution Workflow](https://raw.githubusercontent.com/AIMOverse/amico/refs/heads/main/images/task_exec.png)
 
 - **Event-Triggered Task**
 

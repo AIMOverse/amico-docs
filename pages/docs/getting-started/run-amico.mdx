@@ -1,0 +1,109 @@
+# Running Amico
+
+The `amico` cli is a standalone Amico agent runtime. Everyone can run an Amico autonomous AI agent and control its tasks and workflows just in a configuration file, without modifying the source code.
+
+## Installation
+
+### Installing from Cargo
+
+You have to set up rust toolchain first. The recommended way is to use [`rustup`](https://rustup.rs/).
+
+After installing [`rustup`](https://rustup.rs/) on your system, run the following command to set up the rust stable tool chain:
+
+```bash [Terminal]
+rustup default stable
+```
+
+Now you can install the `amico` cli using the following command:
+
+```bash [Terminal]
+cargo install amico
+```
+
+You may have to add `~/.cargo/bin` to your `$PATH` for the `amico` command to work. If you are using `bash` or `zsh`, you can do it like this:
+
+```bash [Terminal]
+export PATH="$PATH:$HOME/.cargo/bin"
+```
+
+To check if the `amico` command is installed, run the following command:
+
+```bash [Terminal]
+amico --version
+```
+
+## Configuration
+
+To run the Amico standalone runtime, you will need to set up a configuration file. The configuration file is a `TOML` file that specifies the agent's behavior and tasks.
+
+For Linux systems, `amico` searches for the `Amico.toml` configuration file in the following order:
+
+1. `amico.toml` in the current working directory (cwd);
+2. `$XDG_CONFIG_HOME/amico/Amico.toml`;
+3. `$HOME/.config/amico/Amico.toml`;
+4. `$HOME/.amico/Amico.toml`;
+5. `/etc/amico/Amico.toml`;
+
+You can also specify the configuration file path explicitly using the `--config` or `-c` option:
+
+```bash [Terminal]
+amico --config <path to config file>
+```
+
+## Example Configuration
+
+**Important: Amico is not stable yet. The configuration file format may change.**
+
+```toml
+# The example configuration file of a single-agent runtime
+
+# Configuration file standard version
+version = 0
+
+# The name of the agent
+name = "Amico"
+
+# Standard runtime using `tokio::main`
+runtime = "standard"
+
+# Model Providers
+[providers.openai]
+base_url = "https://api.openai.com/v1"
+api_key = "sk-XXX"
+
+# Custom provider
+[[providers.custom]]
+name = "my-custom-provider"
+base_url = "http://localhost:8000"
+schema = "openai"
+api_key = "XXX"
+
+# Plugins configuration
+[plugins]
+# Use `std` plugins for low-level infrastracture
+knowledge_base = "std"
+task_executor = "std"
+action_selector = "std"
+
+[plugins.effectors.twitter]
+enabled = true
+consumer_key = "XXX"
+consumer_secret = "XXX"
+access_token = "XXX"
+access_token_secret = "XXX"
+
+[plugins.sensors.twitter_reader]
+enabled = true
+api_key = "XXX"
+
+# Agent Runtime Infrastructure (Low-Level Plugins) Configuration
+
+# RAG system
+[plugins.config.knowledge_base]
+database = "in-memory"
+embedding_model = "text-embedding-ada-002"
+
+# Action Selector Event Settings
+[plugins.config.action_selector]
+event_expiry_time = 60 # Event default expiry time (in seconds)
+```
