@@ -15,12 +15,21 @@ export default defineConfig({
         link: `${docsPath}/introduction`,
       },
       {
-        text: "Getting Started",
-        link: `${docsPath}/getting-started`,
-      },
-      {
         text: "Contributing",
         link: `${docsPath}/contributing`,
+      },
+      {
+        text: "Getting Started",
+        items: [
+          {
+            text: "Running Amico Instance",
+            link: `${docsPath}/getting-started/running-instance`,
+          },
+          {
+            text: "Plugin Development",
+            link: `${docsPath}/getting-started/plugin-dev`,
+          },
+        ]
       },
       {
         text: "Packages",
