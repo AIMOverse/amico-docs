@@ -2,7 +2,7 @@ import { defineConfig } from "vocs";
 
 const basePath = "/amico-docs";
 const docsPath = `/docs`;
-const tutorPath = `/tutorials`;
+//const tutorPath = `/tutorials`;
 
 export default defineConfig({
   title: "Amico Docs",
@@ -13,6 +13,20 @@ export default defineConfig({
       {
         text: "Introduction",
         link: `${docsPath}/introduction`,
+        items: [
+          {
+            text: "Core Concepts",
+            link: `${docsPath}/introduction/core-concepts`,
+          },
+          {
+            text: "Architecture Overview",
+            link: `${docsPath}/introduction/architecture-overview`,
+          },
+          {
+            text: "Our vision",
+            link: `${docsPath}/introduction/our-vision`,
+          }
+        ]
       },
       {
         text: "Contributing",
@@ -71,11 +85,7 @@ export default defineConfig({
           {
             text: "Rig-rs",
             link: "https://rig.rs",
-          },
-          {
-            text: "Listen-rs",
-            link: "https://listen-rs.com",
-          },
+          }
         ],
       },
     ],
@@ -87,9 +97,21 @@ export default defineConfig({
       match: `${docsPath}/`,
     },
     {
-      text: "Tutorials",
-      link: `${tutorPath}/`,
-      match: `${tutorPath}/`,
+      text: "Community",
+      link: "t.me/aimoverse"
+    },
+    {
+      text: "Twitter",
+      link: "https://x.com/AIMOverse"
+    },
+    {
+      text: "Github",
+      link: "https://github.com/AIMOverse/amico"
     }
+    // {
+    //   text: "Tutorials",
+    //   link: `${tutorPath}/`,
+    //   match: `${tutorPath}/`,
+    // }
   ]
 });
