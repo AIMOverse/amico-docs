@@ -15,10 +15,6 @@ export default defineConfig({
         link: `${docsPath}/introduction`,
         items: [
           {
-            text: "Core Concepts",
-            link: `${docsPath}/introduction/core-concepts`,
-          },
-          {
             text: "Architecture Overview",
             link: `${docsPath}/introduction/architecture-overview`,
           },
