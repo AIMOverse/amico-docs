@@ -74,16 +74,16 @@ export default defineConfig({
           },
         ],
       },
-      {
-        text: "Dependencies",
-        collapsed: true,
-        items: [
-          {
-            text: "Rig-rs",
-            link: "https://rig.rs",
-          }
-        ],
-      },
+      // {
+      //   text: "Dependencies",
+      //   collapsed: true,
+      //   items: [
+      //     {
+      //       text: "Rig-rs",
+      //       link: "https://rig.rs",
+      //     }
+      //   ],
+      // },
     ],
   },
   topNav: [
@@ -94,11 +94,11 @@ export default defineConfig({
     },
     {
       text: "Community",
-      link: "t.me/aimoverse"
+      link: "t.me/amico_community"
     },
     {
       text: "Twitter",
-      link: "https://x.com/AIMOverse"
+      link: "https://x.com/amico_rs"
     },
     {
       text: "Github",
