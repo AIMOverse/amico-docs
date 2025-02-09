@@ -1,6 +1,6 @@
 import { defineConfig } from "vocs";
 
-const basePath = "/amico-docs";
+const basePath = "/";
 const docsPath = `/docs`;
 //const tutorPath = `/tutorials`;
 
