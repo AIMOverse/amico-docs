@@ -13,16 +13,14 @@ export default defineConfig({
       {
         text: "Introduction",
         link: `${docsPath}/introduction`,
-        items: [
-          {
-            text: "Architecture Overview",
-            link: `${docsPath}/introduction/architecture-overview`,
-          },
-          {
-            text: "Our vision",
-            link: `${docsPath}/introduction/our-vision`,
-          }
-        ]
+      },
+      {
+        text: "Architecture Overview",
+        link: `${docsPath}/introduction/architecture-overview`,
+      },
+      {
+        text: "Our vision",
+        link: `${docsPath}/introduction/our-vision`,
       },
       {
         text: "Contributing",
@@ -39,10 +37,11 @@ export default defineConfig({
             text: "Plugin Development",
             link: `${docsPath}/getting-started/plugin-dev`,
           },
-        ]
+        ],
       },
       {
         text: "Packages",
+        collapsed: true,
         items: [
           {
             text: "Overview",
@@ -94,19 +93,19 @@ export default defineConfig({
     },
     {
       text: "Community",
-      link: "t.me/amico_community"
+      link: "t.me/amico_community",
     },
     {
       text: "Twitter",
-      link: "https://x.com/amico_rs"
+      link: "https://x.com/amico_rs",
     },
     {
       text: "Github",
-      link: "https://github.com/AIMOverse/amico"
+      link: "https://github.com/AIMOverse/amico",
     },
     {
       text: "Dexscreener",
-      link: "https://dexscreener.com/solana/hpbwufq3ewkejawybpujci4paxvk5re58vypvuskpxlc"
-    }
-  ]
+      link: "https://dexscreener.com/solana/hpbwufq3ewkejawybpujci4paxvk5re58vypvuskpxlc",
+    },
+  ],
 });

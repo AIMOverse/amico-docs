@@ -2,13 +2,13 @@
 
 ## Framework Modules
 
-![Framework](https://raw.githubusercontent.com/AIMOverse/amico/refs/heads/main/images/framework.png)
+![Framework](https://raw.githubusercontent.com/AIMOverse/amico/refs/heads/main/images/framework-v2.png)
 
 - **Framework Layers**
 
-  - The **Interaction Layer** manages the communication between agents and the environment. In this layer, **sensors** are used to acquire the current state of the environment, and **effectors** are used to execute actions. The environment the layer interacts to is not only real-world but also virtual environments like the Internet or a block chain. The drivers for real-world hardware sensors and effectors are implemented in `amico-firmware` crate. **In the future, we aims to further decouple the interaction layer into:**
+  - The **Interaction Layer** manages the communication between agents and the environment. In this layer, **sensors** are used to acquire the current state of the environment, and **effectors** are used to execute actions. The environment the layer interacts to is not only real-world but also virtual environments like the Internet or a block chain. The drivers for real-world hardware sensors and effectors are implemented in `amico-firmware` crate. **In the future, we aims to further decouple the current interaction layer into:**
     - The **Environment Layer**, which passively receive/respond to the environment all the time without inter needed.
-    - The **User Layer**, which actively receive/respond to users/agents' actions and state.
+    - The **Interaction Layer**, which actively receive/respond to users/agents' actions and state.
   - The **Agent Layer** encapsulates the core logic of the agent, including state management, decision-making, and action execution. The concrete **LLM Providers** and **RAG Systems** are implemented in plugins. The framework provides several **Task execution model** (see the *Model-Based Agents* section below) implementations in the `amico-std` crate, but you can also write your own implementations in plugins.
   - The **Engine Layer** implements the core logic of task scheduling, event generation and action selection based on events. The framework provides an implementation of **Action Selector** based on mapping in the `amico-std` crate, but you can also write your own implementations in plugins.
 
