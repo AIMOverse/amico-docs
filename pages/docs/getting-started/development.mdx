@@ -1,37 +1,96 @@
-# Getting started
+# Development Guide
 
-## Installing Standalone Runtime
+## Getting Started with Development
 
-You can install the Amico standalone runtime using the following command:
+**Amico** is written in **Rust**. Before you begin developing with Amico, you should have:
 
-```bash [Terminal]
-cargo install amico
-```
+- Basic knowledge of Rust programming language
+- Familiarity with command-line interfaces
 
-## Start Building Using Core Library
+### Installing Rust
 
-To start building your own Autonomous AI agent runtime using the Core Library, you will need to set up a new project using [Cargo](https://doc.rust-lang.org/cargo/commands/cargo_new.html).
-
-```bash [Terminal]
-cargo new <your-project-name> --bin
-```
-
-Once you have a new project, you can add the Core Library as a dependency using the following command:
+To install Rust, we recommend using `rustup`, the Rust toolchain installer:
 
 ```bash [Terminal]
-cargo add amico-core
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-## Building Your Plugins
-
-To build your own plugins, you will need to set up a new project using [Cargo](https://doc.rust-lang.org/cargo/commands/cargo_new.html).
+Follow the on-screen instructions to complete the installation. After installation, you can verify your Rust installation with:
 
 ```bash [Terminal]
-cargo new <your-plugin-name> --lib
+rustc --version
 ```
 
-All the plugins should follow the [Plugin Development Guide](/docs/modules/overview) and implement our plugin interface.
+This will display the installed Rust version.
+
+## Building and Running Amico
+
+### Cloning the Repository
+
+First, clone the Amico repository from GitHub:
 
 ```bash [Terminal]
-cargo add amico-plugin-interface
+git clone https://github.com/AIMOverse/amico
+cd amico
 ```
+
+### Repository Structure
+
+The Amico repository is organized as a Cargo workspace consisting of several modules:
+
+- **`amico`**: The main executable application
+- **`amico-core`**: Core functionality for agent task scheduling
+- **`amico-hal`**: Hardware Abstraction Layer for embedded devices
+- **`amico-sdk`**: SDK for development with AI functionalities
+- **`amico-mods`**: Modules for implementing and extending agent features
+
+For more detailed information about each module, refer to the [Modules Overview](/docs/modules/overview).
+
+### Building Amico
+
+Once you have cloned the repository, you can build Amico using Cargo, Rust's package manager and build system:
+
+```bash [Terminal]
+cargo build -p amico
+```
+
+This command compiles the Amico package and its dependencies. The compiled binary will be available in the `target/debug` directory.
+
+### Running Amico
+
+To build and run Amico in a single step, use:
+
+```bash [Terminal]
+cargo run -p amico
+```
+
+### Setting Up Environment Variables
+
+Amico may require certain environment variables to function properly. If you encounter errors about missing environment variables like `OPENAI_API_KEY`, you'll need to set them in your terminal:
+
+```bash [Terminal]
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+## Next Steps
+
+### Development Directions
+
+Once you have Amico up and running, here are some ways you can contribute to the project:
+
+1. **Add dynamic module loading / configuration features to the `amico` runtime**  
+   Learn more: [Amico Runtime Development](/docs/getting-started/amico-dev)
+
+2. **Extend the framework's features with modules**  
+   Learn more: [Modules Development](/docs/getting-started/modules-dev)
+
+3. **Improve core / SDK interfaces and features**  
+   Learn more: [Core and SDK Development](/docs/getting-started/core-sdk-dev)
+
+### Join Our Community
+
+Connect with other Amico developers and users:
+
+- **Twitter**: [Twitter Link](https://x.com/amico_rs)
+- **Telegram Group**: [Telegram Group Link](https://t.me/amico_community)
+- **GitHub**: [GitHub Link](https://github.com/AIMOverse/amico)
