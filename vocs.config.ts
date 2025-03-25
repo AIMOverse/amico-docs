@@ -37,7 +37,11 @@ export default defineConfig({
           },
           {
             text: "Running Amico",
-            link: `${gettingStartedPath}/run-amico`,
+            link: `${gettingStartedPath}/run`,
+          },
+          {
+            text: "SDK Guide",
+            link: `${gettingStartedPath}/sdk-guide`,
           },
           {
             text: "Modules Development",
