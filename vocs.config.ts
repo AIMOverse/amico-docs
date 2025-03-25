@@ -1,7 +1,9 @@
 import { defineConfig } from "vocs";
 
-const basePath = "/";
+const basePath = `/`;
 const docsPath = `/docs`;
+const modulesPath = `${docsPath}/modules`;
+const gettingStartedPath = `${docsPath}/getting-started`;
 //const tutorPath = `/tutorials`;
 
 export default defineConfig({
@@ -16,11 +18,11 @@ export default defineConfig({
       },
       {
         text: "Architecture Overview",
-        link: `${docsPath}/introduction/architecture-overview`,
+        link: `${docsPath}/architecture-overview`,
       },
       {
         text: "Our vision",
-        link: `${docsPath}/introduction/our-vision`,
+        link: `${docsPath}/our-vision`,
       },
       {
         text: "Contributing",
@@ -30,46 +32,42 @@ export default defineConfig({
         text: "Getting Started",
         items: [
           {
-            text: "Running Amico",
-            link: `${docsPath}/getting-started/run-amico`,
+            text: "Development",
+            link: `${gettingStartedPath}/development`,
           },
           {
-            text: "Plugin Development",
-            link: `${docsPath}/getting-started/plugin-dev`,
+            text: "Running Amico",
+            link: `${gettingStartedPath}/run-amico`,
+          },
+          {
+            text: "Modules Development",
+            link: `${gettingStartedPath}/modules-dev`,
           },
         ],
       },
       {
-        text: "Packages",
+        text: "Modules",
         collapsed: true,
         items: [
           {
             text: "Overview",
-            link: `${docsPath}/packages/overview`,
+            link: `${modulesPath}/overview`,
           },
           {
             text: "Core Library",
-            link: `${docsPath}/packages/amico-core`,
+            link: `${modulesPath}/amico-core`,
           },
           {
-            text: "Amico Plugins",
-            link: `${docsPath}/packages/amico-plugins`,
+            text: "Amico Modules",
+            link: `${modulesPath}/amico-modules`,
           },
           {
-            text: "Builtin Plugins",
-            link: `${docsPath}/packages/amico-std`,
-          },
-          {
-            text: "Firmware drivers",
-            link: `${docsPath}/packages/amico-firmware`,
-          },
-          {
-            text: "Procedural Macros",
-            link: `${docsPath}/packages/amico-macros`,
+            text: "Hardware Abstraction",
+            link: `${modulesPath}/amico-hal`,
           },
           {
             text: "Standalone Runtime",
-            link: `${docsPath}/packages/amico`,
+            link: `${modulesPath}/amico`,
           },
         ],
       },
