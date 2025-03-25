@@ -58,6 +58,10 @@ export default defineConfig({
             link: `${modulesPath}/overview`,
           },
           {
+            text: "amico",
+            link: `${modulesPath}/amico`,
+          },
+          {
             text: "amico-core",
             link: `${modulesPath}/amico-core`,
           },
