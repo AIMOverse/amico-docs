@@ -32,12 +32,12 @@ export default defineConfig({
         text: "Getting Started",
         items: [
           {
-            text: "Development",
-            link: `${gettingStartedPath}/development`,
-          },
-          {
             text: "Running Amico",
             link: `${gettingStartedPath}/run`,
+          },
+          {
+            text: "Development Guide",
+            link: `${gettingStartedPath}/development`,
           },
           {
             text: "SDK Guide",
