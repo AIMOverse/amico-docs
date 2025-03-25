@@ -1,7 +1,9 @@
 import { defineConfig } from "vocs";
 
-const basePath = "/";
+const basePath = `/`;
 const docsPath = `/docs`;
+const modulesPath = `${docsPath}/modules`;
+const gettingStartedPath = `${docsPath}/getting-started`;
 //const tutorPath = `/tutorials`;
 
 export default defineConfig({
@@ -16,11 +18,11 @@ export default defineConfig({
       },
       {
         text: "Architecture Overview",
-        link: `${docsPath}/introduction/architecture-overview`,
+        link: `${docsPath}/architecture-overview`,
       },
       {
         text: "Our vision",
-        link: `${docsPath}/introduction/our-vision`,
+        link: `${docsPath}/our-vision`,
       },
       {
         text: "Contributing",
@@ -31,45 +33,45 @@ export default defineConfig({
         items: [
           {
             text: "Running Amico",
-            link: `${docsPath}/getting-started/run-amico`,
+            link: `${gettingStartedPath}/run`,
           },
           {
-            text: "Plugin Development",
-            link: `${docsPath}/getting-started/plugin-dev`,
+            text: "Development Guide",
+            link: `${gettingStartedPath}/development`,
+          },
+          {
+            text: "SDK Guide",
+            link: `${gettingStartedPath}/sdk-guide`,
+          },
+          {
+            text: "Modules Development",
+            link: `${gettingStartedPath}/modules-dev`,
           },
         ],
       },
       {
-        text: "Packages",
+        text: "Modules",
         collapsed: true,
         items: [
           {
             text: "Overview",
-            link: `${docsPath}/packages/overview`,
+            link: `${modulesPath}/overview`,
           },
           {
-            text: "Core Library",
-            link: `${docsPath}/packages/amico-core`,
+            text: "amico",
+            link: `${modulesPath}/amico`,
           },
           {
-            text: "Amico Plugins",
-            link: `${docsPath}/packages/amico-plugins`,
+            text: "amico-core",
+            link: `${modulesPath}/amico-core`,
           },
           {
-            text: "Builtin Plugins",
-            link: `${docsPath}/packages/amico-std`,
+            text: "amico-mods",
+            link: `${modulesPath}/amico-mods`,
           },
           {
-            text: "Firmware drivers",
-            link: `${docsPath}/packages/amico-firmware`,
-          },
-          {
-            text: "Procedural Macros",
-            link: `${docsPath}/packages/amico-macros`,
-          },
-          {
-            text: "Standalone Runtime",
-            link: `${docsPath}/packages/amico`,
+            text: "amico-hal",
+            link: `${modulesPath}/amico-hal`,
           },
         ],
       },
@@ -93,7 +95,7 @@ export default defineConfig({
     },
     {
       text: "Community",
-      link: "t.me/amico_community",
+      link: "https://t.me/amico_community",
     },
     {
       text: "Twitter",

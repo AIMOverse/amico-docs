@@ -1,0 +1,110 @@
+# Running Amico
+
+## Prerequisites
+
+### Rust
+
+Amico is built with Rust, so you need to have Rust installed on your system. You can install Rust via `rustup`:
+
+```bash [Terminal]
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Follow the on-screen instructions to complete the installation. After installation, you can verify your Rust installation with:
+
+```bash [Terminal]
+rustc --version
+```
+
+This will display the installed Rust version.
+
+### System Requirements
+
+#### Officially Supported Operating Systems
+
+1. Ubuntu amd64 / arm64
+2. Raspbian arm64
+3. Arch Linux amd64
+
+#### Future Supported Operating Systems
+
+1. Android arm64 (Near future)
+2. Debian amd64 / arm64 (Near future)
+3. iOS arm64
+4. Windows amd64
+5. macOS amd64 / arm64
+
+#### Future Supported Platforms / Architectures
+
+1. WASM (Near future)
+2. RISC-V
+
+### Required Dependencies
+
+Depending on your operating system, you may need to install additional dependencies:
+
+#### Debian/Ubuntu
+
+```bash [Terminal]
+sudo apt update
+sudo apt install build-essential pkg-config libssl-dev
+```
+
+#### Arch Linux
+
+```bash [Terminal]
+sudo pacman -S base-devel openssl
+```
+
+## Getting Started
+
+### Cloning the Repository
+
+First, clone the Amico repository from GitHub:
+
+```bash [Terminal]
+git clone https://github.com/AIMOverse/amico
+cd amico
+```
+
+### Building Amico
+
+Once you have cloned the repository, you can build Amico using Cargo, Rust's package manager and build system:
+
+```bash [Terminal]
+cargo build -p amico
+```
+
+This command compiles the Amico package and its dependencies. The compiled binary will be available in the `target/debug` directory.
+
+### Running Amico
+
+To build and run Amico in a single step, use:
+
+```bash [Terminal]
+cargo run -p amico
+```
+
+## Configuration
+
+### Setting Up Environment Variables
+
+Amico requires certain environment variables to function properly. The most important one is the `OPENAI_API_KEY` for AI capabilities:
+
+```bash [Terminal]
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+## Troubleshooting
+
+### Common Issues
+
+- **Missing API Key**: If you see an error about a missing API key, ensure you've set the `OPENAI_API_KEY` environment variable.
+- **Build Failures**: Make sure you have all the required dependencies installed for your operating system.
+
+## Next Steps
+
+Now that you have Amico running, you might want to explore:
+
+- [Development Guide](/docs/getting-started/development) - Learn how to develop with Amico
+- [Modules Overview](/docs/modules/overview) - Understand the modular architecture
