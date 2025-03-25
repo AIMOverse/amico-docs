@@ -54,20 +54,16 @@ export default defineConfig({
             link: `${modulesPath}/overview`,
           },
           {
-            text: "Core Library",
+            text: "amico-core",
             link: `${modulesPath}/amico-core`,
           },
           {
-            text: "Amico Modules",
-            link: `${modulesPath}/amico-modules`,
+            text: "amico-mods",
+            link: `${modulesPath}/amico-mods`,
           },
           {
-            text: "Hardware Abstraction",
+            text: "amico-hal",
             link: `${modulesPath}/amico-hal`,
-          },
-          {
-            text: "Standalone Runtime",
-            link: `${modulesPath}/amico`,
           },
         ],
       },
@@ -91,7 +87,7 @@ export default defineConfig({
     },
     {
       text: "Community",
-      link: "t.me/amico_community",
+      link: "https://t.me/amico_community",
     },
     {
       text: "Twitter",
