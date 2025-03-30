@@ -62,6 +62,10 @@ export default defineConfig({
             link: `${modulesPath}/amico`,
           },
           {
+            text: "amico-sdk",
+            link: `${modulesPath}/amico-sdk`,
+          },
+          {
             text: "amico-core",
             link: `${modulesPath}/amico-core`,
           },

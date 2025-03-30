@@ -1,124 +1,73 @@
 # Modules Development
 
-**Important: Amico is not stable yet. The plugin interface may change.**
+**Important: Amico is not stable yet. The module interface may change.**
 
-If you want to make your own feature available to Amico, you will need to implement your own plugin. Amico is an open source framework, so feel free to make a pull request and contribute your own plugin to our community!
+If you want to make your own feature available to Amico, you will need to implement your own module. Amico is an open source framework, so feel free to make a pull request and contribute your own module to our community!
 
-## Plugin Categories Overview
+## Module Categories Overview
 
-High-level plugins are the ones that provide certain functionality to the agent, while low-level plugins are the ones that add features to the agent workflow and are used internally by the framework.
+High-level modules are the ones that provide certain functionality to the agent, while low-level modules are the ones that add features to the agent workflow and are used internally by the framework.
 
-- **High-Level Plugins**
+- **High-Level Modules**
 
   - **Effectors**: Perform actions like hardware module control, transaction execution, content posting, sending messages to other agents, etc.
   - **Sensors**: Acquire the current state of the environment like sensor reading, social media content reading, receiving messages from other agents, etc.
   - **LLM Providers**: Providing API access to LLM services like OpenAI, DeepSeek, etc.
   - **Firmware Drivers**: Providing a low-level interface for interacting with embedded devices.
 
-- **Low-Level Plugins**
+- **Low-Level Modules**
 
   - **RAG Systems**: Providing a retrieval-augmented generation system.
   - **Task Executors**: Providing a task execution workflow, like Model-Based Agents described below.
   - **Action Selectors**: Providing an action selection algorithm, to select the most appropriate action given the current state and the available actions.
 
-## Plugin Development Process
+## Module Development Process
 
-First, clone our repository:
+First, follow the [Getting Started](/docs/getting-started/development) guide to set up your development environment.
 
-```bash [Terminal]
-git clone https://github.com/AIMOverse/amico.git
-cd amico
-```
+The `amico-mods` crate is where all the community-developed modules are located. If you want to add your own module, you can create a new module in the `amico-mods` directory and add your module there.
 
-The `amico-plugins` crate is where all the community-developed plugins are located. If you want to add your own plugin, you can create a new module in the `amico-plugins` directory and add your plugin there.
+### Learn About the Crate Structure
 
-You can find the plugin interface in the `amico-core` crate.
+The `amico-mods` crate is organized into several key directories, each serving a specific purpose in the module ecosystem:
 
-```rust
-/// The base trait of a plugin.
-pub trait Plugin {
-    /// The unique identifier of the plugin.
-    ///
-    /// Not to be confused with plugin instance names
-    /// in `PluginPool`s.
-    fn name(&self) -> String;
+#### Core Components
 
-    /// Set up the plugin with the given context.
-    fn setup(config: &dyn Any) -> Result<Self, PluginError>
-    where
-        Self: Sized;
-}
-```
+- **`interface/`**: Defines the core traits and interfaces for the module system.
+  - **`module.rs`**: Provides the `Module` trait and related structures.
+  - **`provider.rs`**: Contains provider interfaces for module functionality.
 
-You can find some example plugin implementations in the `amico_core::plugin::tests` crate.
+- **`module_manager/`**: Implements the module loading and management system.
 
-```rust
-use std::{any::Any, collections::HashMap, sync::Arc};
+> **⚠️ IMPORTANT**: The module interfaces and module manager are currently under active development and subject to change. API stability is not guaranteed. Developers are encouraged to provide feedback on the current design to help shape the final stable API.
 
-use serde::{Deserialize, Serialize};
+#### Module Implementations
 
-use crate::entities::Event;
+- **`std/`**: Standard modules for general AI agent capabilities.
+  - **`ai/`**: AI-related modules for language models and other AI services.
+  - **`core/`**: Core functionality modules for basic agent operations.
 
-use super::{error::PluginError, *};
+- **`web3/`**: Blockchain and Web3 integration modules.
+  - **`ethereum/`**: Ethereum blockchain integration.
+  - **`solana/`**: Solana blockchain integration.
+  - **`wallet.rs`**: Cryptocurrency wallet functionality.
 
-// Event Source
+#### Available Features
 
-#[derive(Debug, Deserialize, Serialize)]
-struct TestEventSourceConfig {
-    initial_state: i32,
-}
+The `amico-mods` crate provides several feature flags that you can enable in your `Cargo.toml`:
 
-struct TestEventSource {
-    state: i32,
-}
+- **`std`**: Enables standard modules (enabled by default).
+- **`web3`**: Enables basic Web3 functionality.
+- **`web3-solana`**: Enables Solana blockchain support.
+- **`web3-ethereum`**: Enables Ethereum blockchain support.
+- **`full`**: Enables all available modules and features.
 
-impl TestEventSource {
-    fn state(&self) -> i32 {
-        self.state
-    }
-}
+### Creating Your Own Module
 
-impl Plugin for TestEventSource {
-    fn name(&self) -> String {
-        "test_event_source".to_string()
-    }
+To create your own module, you'll need to:
 
-    fn setup(config: &dyn Any) -> Result<Self, PluginError>
-    where
-        Self: Sized,
-    {
-        if let Some(config) = config.downcast_ref::<TestEventSourceConfig>() {
-            Ok(TestEventSource {
-                state: config.initial_state,
-            })
-        } else {
-            Err(PluginError::InvalidConfigFormat)
-        }
-    }
-}
+1. Choose the appropriate category for your module (e.g., Sensor, Effector, Provider)
+2. Implement the required traits for your module type
+3. Add your module to the appropriate directory in `amico-mods`
+4. Ensure your module is properly registered with the module system
 
-impl EventSource for TestEventSource {
-    fn generate_event(&mut self) -> crate::entities::Event {
-        self.state += 1;
-
-        Event::new(
-            "test_event".to_string(),
-            "test_source".to_string(),
-            HashMap::new(),
-            None,
-        )
-    }
-}
-
-#[test]
-fn test_event_source() {
-    let config = TestEventSourceConfig { initial_state: 0 };
-    let mut source = TestEventSource::setup(&config).unwrap();
-    let event = source.generate_event();
-    assert_eq!(event.name, "test_event");
-    assert_eq!(event.source, "test_source");
-    assert_eq!(event.params.len(), 0);
-    assert_eq!(source.state(), 1);
-}
-
-```

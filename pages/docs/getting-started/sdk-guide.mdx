@@ -1,0 +1,356 @@
+# Develop with Amico SDK
+
+## Introduction
+
+The Amico SDK provides a comprehensive framework for building intelligent agents. Whether you're creating a simple chatbot or a complex multi-agent system, the SDK offers the tools and abstractions you need to focus on your agent's intelligence rather than infrastructure.
+
+## What does the Amico SDK do?
+
+The Amico SDK is designed to simplify your agent development workflow by:
+
+1. Providing an interface to easily configure your agent tools, services, and tasks
+2. Enabling you to run your agent tasks with minimal setup and configuration
+
+With the Amico SDK, you can focus on building the intelligence and capabilities of your agents rather than dealing with infrastructure and boilerplate code.
+
+## Installation
+
+```bash
+# Using cargo to add Amico to your project
+cargo add amico-sdk amico-mods
+
+# Or add to your Cargo.toml
+# [dependencies]
+# amico-sdk = "0.0.1"
+# amico-mods = "0.0.1"
+```
+
+## Core Components of Amico Agents
+
+The Amico SDK is built around several key components that work together to create powerful agent systems:
+
+### Completion Models
+
+A completion model is either a locally running model or an LLM completion service API. It processes chat history with necessary configurations like tool calls and system prompts to generate responses.
+
+**Key features:**
+- Support for various LLM providers
+- Configurable parameters for response generation
+- Handling of context windows and token limits
+
+### Services
+
+An AI service manages LLM operations throughout your application. It:
+- Maintains chat history internally
+- Stores tools and configurations
+- Exposes a simplified content generation interface to callers
+- Leverages completion models
+- Executes tool calls
+- Provides the final output to users
+
+Services abstract away the complexity of working directly with LLMs, letting you focus on your agent's behavior.
+
+### Tasks
+
+Tasks are the action units of your agent system. A task:
+- Is triggered by an external event
+- Performs a series of operations using AI Services
+- Can be scheduled, chained, or run in response to specific conditions
+
+Tasks help organize your agent's work into manageable, reusable components.
+
+### Resources
+
+Resources in Amico are shared data objects that can be safely accessed by multiple agents and components throughout your application.
+
+A Resource wraps any data type with a named reference that can be easily cloned and passed around your agent system. When you clone a Resource, you're not duplicating the underlying data - you're simply creating another reference to the same shared data.
+
+Resources eliminate the need to pass references or worry about ownership issues, making your agent code cleaner and more maintainable. You can simply clone a Resource whenever needed and pass it to any component that requires access to that data.
+
+Resources are particularly useful for:
+
+- Sharing configuration across agents
+- Maintaining shared state
+- Providing access to wallets, API clients, or other external services
+
+#### Example
+
+```rust
+use amico::resource::Resource;
+
+fn resource_consumer_one(resource: Resource<i32>) {
+    // Resource consumers don't need to consume
+    // a resource with references.
+    assert_eq!(*resource.value(), 1);
+}
+
+fn resource_consumer_two(resource: Resource<i32>) {
+    assert_eq!(*resource.value(), 1);
+}
+
+fn main() {
+    let resource = Resource::new("one".to_string(), 1);
+
+    // Just clone the resource wherever needed.
+    resource_consumer_one(resource.clone());
+
+    // Just clone the resource wherever needed.
+    resource_consumer_two(resource.clone());
+
+    // The resource is still available here.
+    assert_eq!(*resource.value(), 1);
+}
+```
+
+### Environment Sensors / Effectors
+
+Sensors and effectors interact with real-world or online environments directly. They can be:
+- Called directly through Tool calls
+- Invoked by event generators to detect and generate events
+- Used to create a bridge between your agent and the outside world
+
+## Building Your First Command-line Chatbot
+
+This section will guide you through building a simple command-line chatbot using the Amico SDK and Amico Mods.
+
+### Setup
+
+First, create a new Rust project:
+
+```bash [Terminal]
+# Using cargo to create a new project
+cargo new amico-chatbot
+```
+
+Add dependencies to your `Cargo.toml`:
+
+```bash [Terminal]
+cargo add amico-sdk amico-mods solana-client solana-sdk serde-json
+cargo add tokio -F full
+```
+
+### Setup Tools for Sensors and Effectors
+
+Create a file under `src` named `tools.rs`:
+
+```rust
+//! Temporary sensor / effector tools.
+//! In the future releases, these tools can be
+//! accessed via the `Environment` model.
+
+use amico::ai::errors::ToolCallError;
+use amico::ai::tool::{Tool, ToolBuilder};
+use amico::environment::{Effector, Sensor};
+use amico::resource::Resource;
+use amico_mods::web3::solana::balance::{BalanceSensor, BalanceSensorArgs};
+use amico_mods::web3::solana::trade::{TradeEffector, TradeEffectorArgs};
+use serde_json::json;
+use solana_sdk::native_token::LAMPORTS_PER_SOL;
+use solana_sdk::pubkey::Pubkey;
+
+pub fn balance_sensor_tool(sensor: Resource<BalanceSensor>, pubkey: &Pubkey) -> Tool {
+    // `Pubkey` implements the `Copy` trait, so we can just copy it
+    let pubkey = *pubkey;
+    let sensor = sensor.clone();
+
+    ToolBuilder::new()
+        .name("balance_sensor")
+        .description("Get the balance of your own Solana account.")
+        .parameters(serde_json::json!({}))
+        .build_async(move |args| {
+            // Clone the sensor and pubkey to move into the async block
+            let sensor = sensor.clone();
+            let pubkey = pubkey;
+            let args = args.clone();
+
+            // Return a boxed future that is both Send and Sync
+            async move {
+                sensor
+                    .value()
+                    .sense(BalanceSensorArgs { pubkey })
+                    .await
+                    .map_err(|err| ToolCallError::ExecutionError {
+                        tool_name: "balance_sensor".to_string(),
+                        params: args,
+                        reason: err.to_string(),
+                    })
+                    .map(|result| {
+                        serde_json::json!({
+                            "balance": result.lamports as f64 / LAMPORTS_PER_SOL as f64
+                        })
+                    })
+            }
+        })
+}
+
+pub fn trade_effector_tool(effector: Resource<TradeEffector>) -> Tool {
+    ToolBuilder::new()
+        .name("trade_solana_token")
+        .description("Trade solana tokens on Raydium")
+        .parameters(serde_json::json!({
+            "type": "object",
+            "properties": {
+                "input_mint": {
+                    "type": "string",
+                    "description": "The Solana pubkey of input token mint, 'sol' for native token."
+                },
+                "output_mint": {
+                    "type": "string",
+                    "description": "The Solana pubkey of output token mint, 'sol' for native token."
+                },
+                "amount": {
+                    "type": "string",
+                    "description": "The amount of token to trade."
+                }
+            },
+            "required": ["input_mint", "output_mint", "amount"],
+        }))
+        .build_async(move |args| {
+            let effector = effector.clone();
+            let effector_args = TradeEffectorArgs {
+                input_mint: args["input_mint"].to_string(),
+                output_mint: args["output_mint"].to_string(),
+                amount: args["amount"].to_string(),
+            };
+
+            async move {
+                effector
+                    .value()
+                    .effect(effector_args)
+                    .await
+                    .map(|_| json!({"status": "success"}))
+                    .map_err(|err| ToolCallError::ExecutionError {
+                        tool_name: "trade_solana_token".to_string(),
+                        params: args,
+                        reason: err.to_string(),
+                    })
+            }
+        })
+}
+```
+
+### Configure Amico Services and Tasks
+
+In the `src/main.rs` file, add the following code:
+
+```rust
+use amico::ai::service::{Service, ServiceBuilder};
+use amico::resource::Resource;
+use amico::task::Task;
+use amico_mods::interface::Plugin;
+use amico_mods::std::ai::providers::RigProvider;
+use amico_mods::std::ai::services::InMemoryService;
+use amico_mods::std::ai::tasks::chatbot::cli::CliTask;
+use amico_mods::std::ai::tasks::chatbot::context::ChatbotContext;
+use amico_mods::web3::solana::balance::BalanceSensor;
+use amico_mods::web3::solana::resources::SolanaClientResource;
+use amico_mods::web3::solana::trade::TradeEffector;
+use amico_mods::web3::wallet::Wallet;
+
+use solana_client::nonblocking::rpc_client::RpcClient;
+use std::process;
+
+mod tools;
+
+use tools::{balance_sensor_tool, trade_effector_tool};
+
+#[tokio::main]
+async fn main() {
+    // Load agent wallet
+    let wallet = Wallet::load_or_save_new("agent_wallet.txt")
+        .inspect(|_| println!("Loaded agent wallet"))
+        .unwrap_or_else(|err| {
+            eprintln!("Error loading wallet: {err}");
+            process::exit(1);
+        });
+    // Make wallet a resource
+    let wallet = Resource::new("wallet".to_string(), wallet);
+
+    // Create Client resource
+    let client = SolanaClientResource::new(
+        "Client resource".to_string(),
+        RpcClient::new("https://api.devnet.solana.com"),
+    );
+
+    // Create BalanceSensor instance
+    let balance_sensor = Resource::new(
+        "balance_sensor".to_string(),
+        BalanceSensor::new(client.clone()),
+    );
+
+    // Create TradeEffector instance
+    let trade_effector = Resource::new(
+        "TradeEffector".to_string(),
+        TradeEffector::new(client.clone(), wallet.clone()),
+    );
+
+    // Create the Provider
+    let provider = RigProvider::new(
+        "https://api.openai.com/v1", 
+        "sk-1234567890", // Replace with your OpenAI API key
+    ).unwrap_or_else(|err| {
+        eprintln!("Error creating provider: {err}");
+        process::exit(1);
+    });
+
+    // Create the Service
+    let service = ServiceBuilder::new(provider)
+        .model("gpt-4o".to_string())
+        .system_prompt(
+            "You are a helpful assistant.".to_string()
+        )
+        .temperature(0.2)
+        .max_tokens(1000)
+        .tool(balance_sensor_tool(
+            balance_sensor.clone(),
+            &wallet.value().solana_keypair().pubkey(),
+        ))
+        .tool(trade_effector_tool(trade_effector.clone()))
+        .build::<InMemoryService<RigProvider>>();
+
+    println!();
+    println!("Agent wallet addresses:");
+    wallet.value().print_all_pubkeys();
+
+    println!();
+    println!("Using service plugin: {}", service.info().name);
+    println!("Tools enabled:\n{}", service.ctx().tools.describe());
+
+    // Create a task
+    let mut chatbot_ctx = ChatbotContext { service };
+    let mut task = CliTask;
+
+    // Run the task in execution order. If encounter error, re-run the task.
+    task.before_run(&mut chatbot_ctx)
+        .await
+        .unwrap_or_else(|err| {
+            eprintln!("Error during {task:?}.before_run");
+        });
+
+    while let Err(e) = task.run(&mut chatbot_ctx).await {
+        eprintln!("Error running task. Re-running");
+        continue;
+    }
+
+    task.after_run(&mut chatbot_ctx)
+        .await
+        .unwrap_or_else(|err| {
+            eprintln!("Error during {task:?}.after_run");
+        });
+}
+```
+
+### Compile and run your chatbot
+
+```bash [Terminal]
+cargo run
+```
+
+This will compile and run your chatbot. The built-in `InMemoryService` will manage the chatbot's conversation history and tool calls. You can now start interacting with your agent!
+
+## Next Steps
+
+Now that you understand the core components of the Amico SDK, you can:
+
+- **Explore the [Modules Development](/docs/getting-started/modules-dev) guide**
+- **Contribute to the project**, see [Contributing Guide](/docs/contributing)
