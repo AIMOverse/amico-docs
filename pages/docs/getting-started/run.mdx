@@ -34,7 +34,7 @@ This will display the installed Rust version.
 4. Windows amd64
 5. macOS amd64 / arm64
 
-#### Future Supported Platforms / Architectures
+#### Platforms / Architectures Planned for Support
 
 1. WASM (Near future)
 2. RISC-V
@@ -47,14 +47,18 @@ Depending on your operating system, you may need to install additional dependenc
 
 ```bash [Terminal]
 sudo apt update
-sudo apt install build-essential pkg-config libssl-dev
+sudo apt install pkg-config libasound2-dev libmp3lame-dev
 ```
+
+*For the updated list, see the [pkglist for deb](https://github.com/AIMOverse/amico/blob/main/pkglist-deb.txt)*
 
 #### Arch Linux
 
 ```bash [Terminal]
-sudo pacman -S base-devel openssl
+sudo pacman -S base-devel pkgconf alsa-lib lame
 ```
+
+*For the updated list, see the [pkglist for pacman](https://github.com/AIMOverse/amico/blob/main/pkglist-pacman.txt)*
 
 ## Getting Started
 
