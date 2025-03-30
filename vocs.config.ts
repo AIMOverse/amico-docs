@@ -109,9 +109,9 @@ export default defineConfig({
       text: "Github",
       link: "https://github.com/AIMOverse/amico",
     },
-    {
-      text: "Dexscreener",
-      link: "https://dexscreener.com/solana/hpbwufq3ewkejawybpujci4paxvk5re58vypvuskpxlc",
-    },
+    // {
+    //   text: "Dexscreener",
+    //   link: "https://dexscreener.com/solana/hpbwufq3ewkejawybpujci4paxvk5re58vypvuskpxlc",
+    // },
   ],
 });
