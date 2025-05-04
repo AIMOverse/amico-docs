@@ -116,4 +116,10 @@ export default defineConfig({
     //   link: "https://dexscreener.com/solana/hpbwufq3ewkejawybpujci4paxvk5re58vypvuskpxlc",
     // },
   ],
+  theme: {
+    accentColor: {
+      light: "#2E9CCA",
+      dark: "#5EB9EA",
+    },
+  }
 });
