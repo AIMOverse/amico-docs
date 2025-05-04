@@ -4,12 +4,14 @@ const basePath = `/`;
 const docsPath = `/docs`;
 const modulesPath = `${docsPath}/modules`;
 const gettingStartedPath = `${docsPath}/getting-started`;
+const iconUrl = `/icon.png`;
 //const tutorPath = `/tutorials`;
 
 export default defineConfig({
   title: "Amico Docs",
   rootDir: ".",
   basePath,
+  iconUrl,
   sidebar: {
     [`${docsPath}/`]: [
       {
